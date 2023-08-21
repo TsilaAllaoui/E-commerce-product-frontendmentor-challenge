@@ -1,31 +1,27 @@
-// "use client";
+import "./styles/page.scss";
 
-import React from "react";
-import "./page.module.scss";
-import { getProducts } from "../../lib/utilities";
-import { CreateForm } from "./components/CreateForm";
-import { ProductItem } from "./components/ProductItem";
-import { createProduct } from "../../lib/utilities";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export default async function Home() {
-  const products = await getProducts();
-
+const Home = () => {
   return (
-    <main>
-      <h1>Home</h1>
-      <CreateForm />
-      <div>
-        {products &&
-          products.map((product) => <ProductItem product={product} />)}
+    <div id="home">
+      <div id="left">
+        <div
+          id="preview"
+          style={{ backgroundImage: `url(images/image-product-1.jpg)` }}
+        ></div>
+        <div id="mini-preview">
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              className="thumbnail"
+              style={{
+                backgroundImage: `url(images/image-product-${i + 1}.jpg)`,
+              }}
+            ></div>
+          ))}
+        </div>
       </div>
-    </main>
+      <div id="right"></div>
+    </div>
   );
-}
+};
+
+export default Home;

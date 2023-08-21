@@ -1,5 +1,4 @@
 import { Product } from "@prisma/client";
-import React from "react";
 
 export const ProductItem = ({ product }: { product: Product }) => {
   return (

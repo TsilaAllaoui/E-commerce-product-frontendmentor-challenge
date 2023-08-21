@@ -1,5 +1,11 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
+  font-family: "DM Sans";
 }

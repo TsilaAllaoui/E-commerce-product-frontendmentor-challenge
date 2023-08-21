@@ -1,0 +1,39 @@
+#home {
+  display: flex;
+  width: 100%;
+  height: 80vh;
+
+  #left,
+  #right {
+    width: 50%;
+    height: 100%;
+    border: solid 1px black;
+  }
+
+  #left {
+    display: flex;
+    justify-content: center;
+    padding: 4rem;
+    flex-direction: column;
+
+    #preview {
+      width: 75%;
+      height: 50%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      border-radius: 0.5rem;
+    }
+
+    #mini-preview {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+
+      .thumbnail {
+        height: 2rem;
+        width: 2rem;
+        background-size: contain;
+      }
+    }
+  }
+}

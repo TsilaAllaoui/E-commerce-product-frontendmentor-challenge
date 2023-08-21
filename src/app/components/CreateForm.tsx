@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import "./CreateForm.scss";
+import "../styles/CreateForm.scss";
 import { createProductAction, deleteAllProductsAction } from "../_actions";
 
 export const CreateForm = () => {
