@@ -7,7 +7,7 @@ import { useState } from "react";
 export const ColorContextProvider = ({ children }: { children: any }) => {
   const [palette, setPalette] = useState<PaletteColors>({
     name: "",
-    vibrant: "transparent",
+    vibrant: "black",
   });
 
   return (

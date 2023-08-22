@@ -26,8 +26,8 @@ const Navbar = () => {
         {paths.map((path) => (
           <>
             <Link
-              key={"/" + path}
-              href={path}
+              key={path}
+              href={"/" + path}
               id={path == "contact" ? "contact" : ""}
               onMouseEnter={handleHover}
               onMouseLeave={handleLeave}
@@ -40,7 +40,10 @@ const Navbar = () => {
         <AiOutlineShoppingCart id="icon" />
         <div
           id="user"
-          style={{ backgroundImage: `url(/images/image-avatar.png)` }}
+          style={{
+            backgroundImage: `url(/images/image-avatar.png)`,
+            border: `solid 2px ${palette?.vibrant}`,
+          }}
         ></div>
       </div>
       <div />

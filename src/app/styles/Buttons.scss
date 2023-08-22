@@ -20,12 +20,13 @@
       cursor: pointer;
 
       &:hover {
-        color: rgba(255, 128, 0, 0.531);
+        opacity: 0.5;
       }
     }
 
     p {
       font-weight: 900;
+      font-size: 1.25rem;
     }
   }
 
@@ -48,6 +49,10 @@
 
     p {
       font-weight: 900;
+    }
+
+    &:hover {
+      opacity: 0.75;
     }
   }
 }

@@ -11,16 +11,24 @@ export const Buttons = () => {
   const [count, setCount] = useState(0);
   const palette = useContext(MainColorContext)?.palette;
 
+  const add = (e: React.MouseEvent<HTMLDivElement>) => {
+    setCount(count + 1);
+  };
+
+  const substract = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (count > 0) setCount(count - 1);
+  };
+
   return (
     <div id="interactions">
       <div id="buttons">
-        <div id="minus">
+        <div id="minus" onClick={substract}>
           <IconContext.Provider value={{ color: palette?.vibrant }}>
             <ImMinus />
           </IconContext.Provider>
         </div>
         <p>{count}</p>
-        <div id="plus">
+        <div id="plus" onClick={add}>
           <IconContext.Provider value={{ color: palette?.vibrant }}>
             <ImPlus />
           </IconContext.Provider>

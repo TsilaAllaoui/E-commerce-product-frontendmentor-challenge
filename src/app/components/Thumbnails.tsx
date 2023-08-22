@@ -36,6 +36,7 @@ export const Thumbnails = ({
             border: `solid 2px ${
               inView == i ? mainColorCtx?.palette.vibrant : "transparent"
             }`,
+            opacity: inView == i ? "1" : "0.3",
           }}
           onClick={(e) => {
             setInView(i);
