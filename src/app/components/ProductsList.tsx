@@ -16,7 +16,7 @@ export const ProductsList = ({
         products.map((product) => (
           <div
             key={product.id}
-            onClick={() => router.push("/products/" + product.id)}
+            onClick={() => router.push("/collections/" + product.id)}
           >
             {product.name}
           </div>

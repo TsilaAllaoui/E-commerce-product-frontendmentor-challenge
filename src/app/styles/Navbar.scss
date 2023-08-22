@@ -1,8 +1,25 @@
+@keyframes tilt {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 #navbar-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
   margin: 0.5rem 0;
 
   #navbar {
@@ -12,31 +29,47 @@
     gap: 2rem;
     width: 75%;
     margin: 0 auto;
+    height: 6rem;
 
-    #contact {
+    #filler {
       flex-grow: 1;
     }
 
     a {
       text-decoration: none;
       color: grey;
+      border-bottom: solid 4px transparent;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
 
     #icon {
       font-size: 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        animation: tilt 250ms linear forwards;
+      }
     }
 
     #user {
+      cursor: pointer;
       border-radius: 100%;
       border: solid 1px black;
       width: 2.5rem;
       height: 2.5rem;
       background-size: cover;
+      transition: transform 250ms linear;
+
+      &:hover {
+        transform: scale(1.25);
+      }
     }
   }
 
   #separator {
-    height: 2px;
+    height: 1.5px;
     background-color: rgba(128, 128, 128, 0.316);
     width: 75%;
   }

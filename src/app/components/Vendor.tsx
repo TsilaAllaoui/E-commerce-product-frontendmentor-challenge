@@ -18,8 +18,8 @@ const Vendor = ({
 
   useEffect(() => {
     ctx?.setPalette(data);
-    console.log("Data: " + data);
-    console.log("Error: " + error);
+    // console.log("Data: " + data.vibrant);
+    // console.log("Error: " + error);
   }, [loading, error]);
 
   return (

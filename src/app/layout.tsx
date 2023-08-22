@@ -19,8 +19,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar />
         <ColorContextProvider>
+          <Navbar />
           <InViewContextProvider>{children}</InViewContextProvider>
         </ColorContextProvider>
       </body>
