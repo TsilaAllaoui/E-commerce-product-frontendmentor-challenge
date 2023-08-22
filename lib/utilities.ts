@@ -4,8 +4,12 @@ export interface Product {
   id?: string;
   name: string;
   price: number;
+  desc: string;
   createdAt?: Date;
   updatedAt?: Date;
+  discount?: number;
+  vendor?: string;
+  images: string;
 }
 
 export const createProduct = async (product: Product) => {
@@ -14,6 +18,8 @@ export const createProduct = async (product: Product) => {
       data: {
         name: product.name,
         price: product.price,
+        desc: product.desc,
+        images: product.images,
       },
     });
   } catch (e) {
@@ -48,7 +54,7 @@ export const deleteProduct = async (id: string) => {
 
 export const getProduct = async (id: string) => {
   try {
-    await prisma.product.findUnique({
+    return await prisma.product.findUnique({
       where: {
         id: id,
       },
@@ -68,7 +74,7 @@ export const getProducts = async () => {
 
 export const deleteAllProducts = async () => {
   try {
-    return await prisma.product.deleteMany();
+    await prisma.product.deleteMany();
   } catch (e) {
     console.log(e);
   }

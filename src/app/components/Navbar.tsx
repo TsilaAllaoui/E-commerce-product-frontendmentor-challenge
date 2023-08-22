@@ -1,7 +1,6 @@
 import Link from "next/link";
 import "../styles/Navbar.scss";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-// import imageAvatar from "../../../images/image-avatar.png";
 
 const Navbar = () => {
   return (
