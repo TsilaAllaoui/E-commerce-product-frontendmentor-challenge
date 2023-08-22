@@ -1,8 +1,8 @@
 "use client";
 
+import { createProductAction, deleteAllProductsAction } from "../_actions";
 import { useRef, useState } from "react";
 import "../styles/CreateForm.scss";
-import { createProductAction, deleteAllProductsAction } from "../_actions";
 
 export const CreateForm = () => {
   const [name, setName] = useState("");
@@ -14,6 +14,14 @@ export const CreateForm = () => {
     await createProductAction({
       name: name,
       price: price,
+      desc: "",
+      images: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      id: "",
+      discount: 0,
+      userId: null,
+      vendor: null,
     });
     formRef.current!.reset();
   };

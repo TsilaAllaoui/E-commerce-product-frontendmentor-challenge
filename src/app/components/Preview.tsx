@@ -1,8 +1,9 @@
 "use client";
 
+import { InViewContext } from "../contexts/inView";
 import { useContext, useEffect } from "react";
 import { Product } from "@prisma/client";
-import { InViewContext } from "../contexts/inView";
+import Image from "next/image";
 
 export const Preview = ({
   currentProduct,
@@ -11,16 +12,13 @@ export const Preview = ({
 }) => {
   const inView = useContext(InViewContext).inView;
 
-  useEffect(() => {
-    console.log(currentProduct);
-  }, []);
-
   return (
-    <div
+    <Image
       id="preview"
-      style={{
-        backgroundImage: `url(${currentProduct?.images.split(";")[inView]})`,
-      }}
-    ></div>
+      src={"/" + currentProduct!.images.split(";")[inView]}
+      alt={currentProduct!.images.split(";")[inView]}
+      width={500}
+      height={500}
+    />
   );
 };

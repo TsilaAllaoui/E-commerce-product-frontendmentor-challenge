@@ -1,27 +1,15 @@
-import "./styles/page.scss";
-import { getProducts } from "../../../lib/utilities";
-import { CreateForm } from "../components/CreateForm";
-import { ProductItem } from "../components/ProductItem";
+import { ProductsList } from "../components/ProductsList";
+import { getAllProductsAction } from "../_actions";
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export default async function Home() {
-  const products = await getProducts();
+const Products = async () => {
+  const products = await getAllProductsAction();
 
   return (
-    <main>
-      <h1>Home</h1>
-      <CreateForm />
-      <div>
-        {products &&
-          products.map((product) => <ProductItem product={product} />)}
-      </div>
-    </main>
+    <div id="products-container">
+      <h1>Products</h1>
+      <ProductsList products={products} />
+    </div>
   );
-}
+};
+
+export default Products;

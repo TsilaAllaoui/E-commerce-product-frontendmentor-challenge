@@ -1,7 +1,7 @@
 "use client";
 
-import { PaletteColors } from "react-palette";
 import { MainColorContext } from "../../contexts/mainColor";
+import { PaletteColors } from "react-palette";
 import { useState } from "react";
 
 export const ColorContextProvider = ({ children }: { children: any }) => {

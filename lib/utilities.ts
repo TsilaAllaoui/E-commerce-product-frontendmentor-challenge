@@ -1,16 +1,5 @@
+import { Product } from "@prisma/client";
 import { prisma } from "./db";
-
-export interface Product {
-  id?: string;
-  name: string;
-  price: number;
-  desc: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  discount?: number;
-  vendor?: string;
-  images: string;
-}
 
 export const createProduct = async (product: Product) => {
   try {

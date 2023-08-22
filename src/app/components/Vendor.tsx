@@ -1,10 +1,9 @@
 "use client";
 
-import { Product } from "@prisma/client";
-import { useContext, useEffect } from "react";
-import { usePalette } from "react-palette";
-
 import { MainColorContext } from "../contexts/mainColor";
+import { usePalette } from "react-palette";
+import { useContext, useEffect } from "react";
+import { Product } from "@prisma/client";
 
 const Vendor = ({
   currentProduct,
@@ -12,14 +11,15 @@ const Vendor = ({
   currentProduct: Product | null | undefined;
 }) => {
   const { data, loading, error } = usePalette(
-    currentProduct?.images.split(";")[0]!
+    "/" + currentProduct?.images.split(";")[0]!
   );
 
   const ctx = useContext(MainColorContext);
 
   useEffect(() => {
     ctx?.setPalette(data);
-    console.log(data);
+    console.log("Data: " + data);
+    console.log("Error: " + error);
   }, [loading, error]);
 
   return (

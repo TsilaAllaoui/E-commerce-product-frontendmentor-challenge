@@ -1,6 +1,6 @@
-import Link from "next/link";
-import "../styles/Navbar.scss";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import "../styles/Navbar.scss";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -17,7 +17,7 @@ const Navbar = () => {
         <AiOutlineShoppingCart id="icon" />
         <div
           id="user"
-          style={{ backgroundImage: `url(images/image-avatar.png)` }}
+          style={{ backgroundImage: `url(/images/image-avatar.png)` }}
         ></div>
       </div>
       <div />

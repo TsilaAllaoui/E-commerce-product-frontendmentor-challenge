@@ -1,9 +1,10 @@
 "use client";
 
-import { Product } from "@prisma/client";
 import React, { useContext, useEffect, useState } from "react";
 import { MainColorContext } from "../contexts/mainColor";
 import { InViewContext } from "../contexts/inView";
+import { Product } from "@prisma/client";
+import Image from "next/image";
 
 export const Thumbnails = ({
   currentProduct,
@@ -23,11 +24,15 @@ export const Thumbnails = ({
   return (
     <div id="mini-preview">
       {[0, 1, 2, 3].map((i) => (
-        <div
+        <Image
           key={i}
           className="thumbnail"
+          id="preview"
+          src={"/" + currentProduct!.images.split(";")[i]}
+          alt={currentProduct!.images.split(";")[i]}
+          width={500}
+          height={500}
           style={{
-            backgroundImage: `url(${images[i]})`,
             border: `solid 2px ${
               inView == i ? mainColorCtx?.palette.vibrant : "transparent"
             }`,
@@ -35,7 +40,7 @@ export const Thumbnails = ({
           onClick={(e) => {
             setInView(i);
           }}
-        ></div>
+        />
       ))}
     </div>
   );

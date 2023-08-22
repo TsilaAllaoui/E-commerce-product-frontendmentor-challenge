@@ -1,14 +1,14 @@
 "use client";
 
-import { Product } from "../../../lib/utilities";
+import { Product } from "@prisma/client";
 import { createContext } from "react";
 
 export interface CurrentProductContextType {
-  currentProduct: Product | null | undefined;
+  currentProduct: Product | undefined;
   setCurrentProduct: (p: Product) => void;
 }
 
 export const CurrentProductContext = createContext<CurrentProductContextType>({
-  currentProduct: { name: "", desc: "", price: 0, images: "" },
+  currentProduct: undefined,
   setCurrentProduct: (p: Product) => {},
 });
