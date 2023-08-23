@@ -68,3 +68,18 @@ export const deleteAllProducts = async () => {
     console.log(e);
   }
 };
+
+/***********USERS***************/
+
+export const getUser = async (id: string) => {
+  try {
+    // return await prisma.user.findUnique({
+    //   where: {
+    //     id: id,
+    //   },
+    // });
+    return await prisma.user.findFirst();
+  } catch (e) {
+    console.log(e);
+  }
+};

@@ -19,13 +19,14 @@ model Product {
   discount  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  images    String
   User      User?    @relation(fields: [userId], references: [id])
   userId    String?
-  images    String
 }
 
 model User {
   id       String    @id @default(uuid())
   name     String
   products Product[]
+  image    String?
 }

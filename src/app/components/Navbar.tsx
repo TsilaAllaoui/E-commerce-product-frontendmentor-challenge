@@ -5,8 +5,10 @@ import "../styles/Navbar.scss";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { MainColorContext } from "../contexts/mainColor";
+import { User } from "@prisma/client";
+import { CurrentUserContext } from "../contexts/currentUser";
 
-const Navbar = () => {
+const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
   const palette = useContext(MainColorContext)?.palette;
 
   const handleHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -19,10 +21,18 @@ const Navbar = () => {
 
   const paths = ["collections", "men", "women", "about", "contact"];
 
+  const currentUserCtx = useContext(CurrentUserContext);
+  useEffect(() => {
+    currentUserCtx.setCurrentUser(currentUser!);
+    console.log(currentUser);
+  }, []);
+
   return (
     <div id="navbar-container">
       <div id="navbar">
-        <h1 id="title">sneakers</h1>
+        <Link id="title" href="/">
+          sneakers
+        </Link>
         {paths.map((path) => (
           <>
             <Link
@@ -41,7 +51,7 @@ const Navbar = () => {
         <div
           id="user"
           style={{
-            backgroundImage: `url(/images/image-avatar.png)`,
+            backgroundImage: `url(/${currentUserCtx?.currentUser?.image})`,
             border: `solid 2px ${palette?.vibrant}`,
           }}
         ></div>
