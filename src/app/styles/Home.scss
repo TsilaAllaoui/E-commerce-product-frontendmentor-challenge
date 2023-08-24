@@ -1,12 +1,14 @@
 #home {
+  gap: 2rem;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   h1 {
     margin: 0;
     margin-left: 6rem;
   }
-
-  gap: 2rem;
-  width: 100vw;
-  height: 100vh;
 
   #products {
     display: flex;
