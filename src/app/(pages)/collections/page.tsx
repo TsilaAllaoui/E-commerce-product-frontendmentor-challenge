@@ -45,7 +45,7 @@ const CollectionPage = () => {
 
   useEffect(() => {
     getCollection();
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getCollectionItems();
