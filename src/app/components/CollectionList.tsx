@@ -35,7 +35,8 @@ export const CollectionList = ({
 
   const handleDelete = async (index: number) => {
     const modal = document.querySelector("#modal") as HTMLDivElement;
-    modal.style.display = modal.style.display == "none" ? "block" : "none";
+    modal.style.zIndex = "2";
+    modal.style.opacity = "1";
     // const res = await deleteProductFromCollection(
     //   collections[index].id,
     //   collections[index].productId

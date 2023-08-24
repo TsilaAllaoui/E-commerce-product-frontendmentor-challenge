@@ -9,6 +9,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 250ms;
 
   #confirmation-modal {
     border-radius: 0.5rem;
