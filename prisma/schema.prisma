@@ -20,13 +20,19 @@ model Product {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   images    String
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
 }
 
 model User {
-  id       String    @id @default(uuid())
-  name     String
-  products Product[]
-  image    String?
+  id    String  @id @default(uuid())
+  name  String
+  image String?
+}
+
+model Collection {
+  id        String @id @default(uuid())
+  productId String
+  userId    String
+  count     Int
+
+  @@unique([productId, userId])
 }

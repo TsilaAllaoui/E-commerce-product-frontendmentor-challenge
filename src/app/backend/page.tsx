@@ -1,5 +1,5 @@
 import "./styles/page.scss";
-import { getProducts } from "../../../lib/utilities";
+import { getProducts } from "../../../db/utilities";
 import { CreateForm } from "../components/CreateForm";
 import { ProductItem } from "../components/ProductItem";
 
@@ -20,7 +20,9 @@ export default async function Home() {
       <CreateForm />
       <div>
         {products &&
-          products.map((product) => <ProductItem product={product} />)}
+          products.map((product) => (
+            <ProductItem key={product.id} product={product} />
+          ))}
       </div>
     </main>
   );

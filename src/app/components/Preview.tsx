@@ -1,9 +1,9 @@
 "use client";
 
-import { InViewContext } from "../contexts/inView";
-import { useContext, useEffect } from "react";
 import { Product } from "@prisma/client";
 import Image from "next/image";
+import { useContext } from "react";
+import { InViewContext } from "../contexts/inView";
 
 export const Preview = ({
   currentProduct,

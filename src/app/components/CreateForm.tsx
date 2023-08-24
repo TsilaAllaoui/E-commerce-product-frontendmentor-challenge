@@ -20,7 +20,6 @@ export const CreateForm = () => {
       updatedAt: new Date(),
       id: "",
       discount: 0,
-      userId: null,
       vendor: null,
     });
     formRef.current!.reset();

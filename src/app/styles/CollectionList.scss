@@ -1,10 +1,12 @@
-#home {
+#collection {
+  display: flex;
+  flex-direction: column;
+
   h1 {
     margin: 0;
     margin-left: 6rem;
   }
 
-  gap: 2rem;
   width: 100vw;
   height: 100vh;
 
@@ -27,7 +29,6 @@
       align-items: end;
       color: white;
       font-weight: 900;
-      padding: 1rem;
       box-shadow: 5px 5px 5px grey;
       transition: all 500ms;
       position: relative;
@@ -41,6 +42,8 @@
         position: absolute;
         top: 1rem;
         right: 1rem;
+        opacity: 0;
+        transition: opacity 250ms;
       }
     }
   }

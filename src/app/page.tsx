@@ -1,16 +1,14 @@
-import { getAllProductsAction } from "./_actions";
 import { ProductsList } from "./components/ProductsList";
 import "./styles/Home.scss";
+import { getAllProducts } from "../../db/utilities";
 
 const Home = async () => {
-  const products = await getAllProductsAction();
+  const products = await getAllProducts();
 
   return (
-    <div id="products-container">
+    <div id="home">
       <h1>Our products</h1>
-      <div id="products">
-        <ProductsList products={products} />
-      </div>
+      <ProductsList products={products} />
     </div>
   );
 };

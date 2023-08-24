@@ -1,9 +1,10 @@
 import { Thumbnails } from "@/app/components/Thumbnails";
-import { getProduct } from "../../../../lib/utilities";
+import { getProduct } from "../../../../../db/utilities";
 import { Buttons } from "@/app/components/Buttons";
 import { Preview } from "@/app/components/Preview";
 import Vendor from "@/app/components/Vendor";
 import "@/app/styles/Product.scss";
+import { useEffect } from "react";
 
 const ProductPage = async ({
   params,
@@ -44,7 +45,7 @@ const ProductPage = async ({
               : ""}
           </p>
         </div>
-        <Buttons />
+        <Buttons currentProduct={currentProduct} />
       </div>
     </div>
   );

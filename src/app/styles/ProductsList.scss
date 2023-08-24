@@ -17,17 +17,24 @@
       background-size: 100% 100%;
       background-repeat: no-repeat;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: end;
       color: white;
       font-weight: 900;
       padding: 1rem;
       box-shadow: 5px 5px 5px grey;
       transition: all 500ms;
+      position: relative;
 
       &:hover {
         transform: translateY(-0.5rem);
         box-shadow: 5px calc(5px + 0.5rem) 5px grey;
+      }
+
+      #icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
       }
     }
   }

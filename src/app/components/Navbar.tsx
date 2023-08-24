@@ -3,10 +3,11 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import "../styles/Navbar.scss";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { MainColorContext } from "../contexts/mainColor";
 import { User } from "@prisma/client";
 import { CurrentUserContext } from "../contexts/currentUser";
+import React from "react";
 
 const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
   const palette = useContext(MainColorContext)?.palette;
@@ -22,9 +23,9 @@ const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
   const paths = ["collections", "men", "women", "about", "contact"];
 
   const currentUserCtx = useContext(CurrentUserContext);
+
   useEffect(() => {
     currentUserCtx.setCurrentUser(currentUser!);
-    console.log(currentUser);
   }, []);
 
   return (
@@ -34,9 +35,8 @@ const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
           sneakers
         </Link>
         {paths.map((path) => (
-          <>
+          <React.Fragment key={path}>
             <Link
-              key={path}
               href={"/" + path}
               id={path == "contact" ? "contact" : ""}
               onMouseEnter={handleHover}
@@ -45,7 +45,7 @@ const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
               {path}
             </Link>
             {path == "contact" ? <div id="filler"></div> : null}
-          </>
+          </React.Fragment>
         ))}
         <AiOutlineShoppingCart id="icon" />
         <div
