@@ -138,15 +138,11 @@ export const addProductsToCollection = async (
   }
 };
 
-export const deleteProductFromCollection = async (
-  id: string,
-  productId: string
-) => {
+export const deleteProductFromCollection = async (id: string) => {
   try {
     await prisma.collection.delete({
       where: {
         id: id,
-        productId: productId,
       },
     });
   } catch (e) {

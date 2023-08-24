@@ -1,13 +1,10 @@
 "use client";
 
 import { Collection, Product } from "@prisma/client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiFillDelete } from "react-icons/ai";
 import "../styles/CollectionList.scss";
-import { ProductWithCount } from "../(pages)/collections/page";
-import { deleteProductFromCollection } from "../../../db/utilities";
-import { revalidatePath } from "next/cache";
 import { Modal } from "./Modal";
 
 export const CollectionList = ({
@@ -37,16 +34,23 @@ export const CollectionList = ({
     const modal = document.querySelector("#modal") as HTMLDivElement;
     modal.style.zIndex = "2";
     modal.style.opacity = "1";
-    // const res = await deleteProductFromCollection(
-    //   collections[index].id,
-    //   collections[index].productId
-    // );
-    // removeCollection(index);
+    setIdToDelete(collections[index].id);
+    setIndex(index);
   };
+
+  const [idToDelete, setIdToDelete] = useState("");
+  const [index, setIndex] = useState(-1);
+
+  useEffect(() => {
+    if (idToDelete == "" && index != -1) {
+      removeCollection(index);
+      setIndex(-1);
+    }
+  }, [idToDelete]);
 
   return (
     <div id="collection">
-      <Modal />
+      <Modal idToDelete={idToDelete} setIdToDelete={setIdToDelete} />
       <h1>Collections</h1>
       <div id="products">
         {products.length > 0 &&
