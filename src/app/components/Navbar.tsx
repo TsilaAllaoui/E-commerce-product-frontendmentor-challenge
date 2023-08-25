@@ -33,7 +33,7 @@ const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
   useEffect(() => {
     currentUserCtx.setCurrentUser(currentUser!);
     if (currentUser?.isAdmin) {
-      setPaths([...paths, "admin"]);
+      setPaths([...paths, "dashboard"]);
     }
   }, []);
 

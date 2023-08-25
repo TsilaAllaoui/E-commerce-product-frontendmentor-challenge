@@ -1,4 +1,4 @@
-import { CreateForm } from "../../components/CreateForm";
+import { CreateForm } from "../../../components/CreateForm";
 
 interface Product {
   id: number;
