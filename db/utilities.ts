@@ -7,7 +7,7 @@ import { prisma } from "./db";
 
 export const createProduct = async (product: Product) => {
   try {
-    await prisma.product.create({
+    return await prisma.product.create({
       data: {
         name: product.name,
         price: product.price,

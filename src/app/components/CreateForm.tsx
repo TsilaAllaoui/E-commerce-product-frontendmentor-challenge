@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import "../styles/CreateForm.scss";
 import { createProduct, deleteAllProducts } from "../../../db/utilities";
+import { Product } from "@prisma/client";
 
 export const CreateForm = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ export const CreateForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const submit = async (data: FormData) => {
-    const res = await createProduct({
+    const product: Product = {
       name: data.get("name")!.toString(),
       price: parseFloat(data.get("price")!.toString()),
       desc: data.get("desc")!.toString(),
@@ -20,9 +21,22 @@ export const CreateForm = () => {
       id: "",
       discount: parseFloat(data.get("discount")!.toString()),
       vendor: data.get("vendor")!.toString(),
-    });
+    };
 
-    formRef.current!.reset();
+    try {
+      const res = await fetch("/api/add", {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      formRef.current!.reset();
+
+      return res.json();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const deletAll = (e: React.MouseEvent<HTMLButtonElement>) => {

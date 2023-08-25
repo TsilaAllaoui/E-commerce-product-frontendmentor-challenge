@@ -52,7 +52,7 @@ export const CollectionList = ({
     <div id="collection">
       <Modal idToDelete={idToDelete} setIdToDelete={setIdToDelete} />
       <h1>Collections</h1>
-      <div id="products">
+      <div id="collections">
         {products.length > 0 &&
           products.map((product, index) => (
             <div

@@ -21,7 +21,16 @@ export const ProductsList = ({
             className="product"
             style={{ backgroundImage: `url(/${product.images.split(";")[0]})` }}
           >
+            {product.discount && product.discount! > 0 ? (
+              <div id="discount">{product.discount}%</div>
+            ) : null}
             <p>{product.name}</p>
+            <p>
+              $
+              {product.discount && product.discount > 0
+                ? product.price - (product.price * product.discount) / 100
+                : product.price}
+            </p>
           </div>
         ))}
     </div>

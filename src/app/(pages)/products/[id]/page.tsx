@@ -17,7 +17,7 @@ const ProductPage = async ({
   const images: string[] | undefined = currentProduct?.images.split(";");
 
   return (
-    <div id="home">
+    <div id="product">
       <div id="left">
         <Preview currentProduct={currentProduct} />
         <Thumbnails currentProduct={currentProduct} />

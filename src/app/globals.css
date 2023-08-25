@@ -7,6 +7,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  padding-bottom: 2rem;
   font-family: "DM Sans";
-  overflow: hidden;
+  overflow-x: hidden;
 }

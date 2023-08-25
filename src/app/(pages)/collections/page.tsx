@@ -4,7 +4,6 @@ import { CollectionList } from "@/app/components/CollectionList";
 import { CurrentUserContext } from "@/app/contexts/currentUser";
 import { Collection, Product } from "@prisma/client";
 import { useContext, useEffect, useState } from "react";
-import "../../styles/ProductsList.scss";
 
 export interface ProductWithCount extends Product {
   count: number;
@@ -57,13 +56,11 @@ const CollectionPage = () => {
   };
 
   return (
-    <div id="products-container">
-      <CollectionList
-        collections={collections}
-        removeCollection={removeCollection}
-        products={products}
-      />
-    </div>
+    <CollectionList
+      collections={collections}
+      removeCollection={removeCollection}
+      products={products}
+    />
   );
 };
 
