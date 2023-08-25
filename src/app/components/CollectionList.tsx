@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiFillDelete } from "react-icons/ai";
 import "../styles/CollectionList.scss";
-import { Modal } from "./Modal";
+import { ModalCollection } from "./Modal";
 
 export const CollectionList = ({
   collections,
@@ -50,7 +50,7 @@ export const CollectionList = ({
 
   return (
     <div id="collection">
-      <Modal idToDelete={idToDelete} setIdToDelete={setIdToDelete} />
+      <ModalCollection idToDelete={idToDelete} setIdToDelete={setIdToDelete} />
       <h1>Collections</h1>
       <div id="collections">
         {products.length > 0 &&

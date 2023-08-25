@@ -9,5 +9,8 @@ body {
   margin: 0;
   padding-bottom: 2rem;
   font-family: "DM Sans";
-  overflow-x: hidden;
+}
+
+body {
+  position: static;
 }

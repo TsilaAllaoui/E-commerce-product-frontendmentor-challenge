@@ -3,7 +3,7 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import "../styles/Navbar.scss";
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MainColorContext } from "../contexts/mainColor";
 import { User } from "@prisma/client";
 import { CurrentUserContext } from "../contexts/currentUser";
@@ -20,12 +20,21 @@ const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
     e.currentTarget.style.borderBottom = "solid 4px transparent";
   };
 
-  const paths = ["collections", "men", "women", "about", "contact"];
+  const [paths, setPaths] = useState([
+    "collections",
+    "men",
+    "women",
+    "about",
+    "contact",
+  ]);
 
   const currentUserCtx = useContext(CurrentUserContext);
 
   useEffect(() => {
     currentUserCtx.setCurrentUser(currentUser!);
+    if (currentUser?.isAdmin) {
+      setPaths([...paths, "admin"]);
+    }
   }, []);
 
   return (

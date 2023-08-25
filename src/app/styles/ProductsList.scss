@@ -1,45 +1,70 @@
-#products-container {
+@keyframes glow {
+  from {
+    background-color: rgba(0, 0, 0, 0.268);
+  }
+  to {
+    background-color: black;
+  }
+}
+
+#products {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding-left: 5rem;
 
-  #products {
+  .product {
+    width: 25rem;
+    height: 15rem;
+    border-radius: 0.5rem;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     display: flex;
-    gap: 2rem;
-    width: 100vw;
-    height: 100vh;
-    padding-left: 3rem;
+    justify-content: space-between;
+    align-items: end;
+    color: white;
+    font-weight: 900;
+    padding: 1rem;
+    box-shadow: 5px 5px 5px grey;
+    transition: all 500ms;
+    position: relative;
+    cursor: pointer;
 
-    .product {
-      width: 25%;
-      height: 35%;
-      border-radius: 0.5rem;
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: end;
-      color: white;
-      font-weight: 900;
-      padding: 1rem;
-      box-shadow: 5px 5px 5px grey;
-      transition: all 500ms;
-      position: relative;
+    #discount {
+      position: absolute;
+      background-color: black;
+      padding: 0.25rem;
+      border-radius: 0.25rem;
+      top: 0.5rem;
+      left: 0.5rem;
+      animation: glow 2000ms linear infinite alternate;
+    }
 
-      &:hover {
-        transform: translateY(-0.5rem);
-        box-shadow: 5px calc(5px + 0.5rem) 5px grey;
-      }
+    p {
+      margin: 0;
+      font-size: 0.75rem;
 
-      #icon {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
+      &:last-of-type {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 0.5rem;
+        border-radius: 0.25rem;
       }
     }
-  }
 
-  h1 {
-    margin-left: 6rem;
+    &:hover {
+      transform: translateY(-0.5rem);
+      box-shadow: 5px calc(5px + 0.5rem) 5px grey;
+    }
+
+    #icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 5rem;
+      height: 5rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
   }
 }
