@@ -1,11 +1,8 @@
 import { Panels } from "@/app/components/Panels";
+import "@/app/styles/Dashboard.scss";
 
-const AdminPage = () => {
-  return (
-    <div id="admin">
-      <Panels />
-    </div>
-  );
+const Dashboard = () => {
+  return <></>;
 };
 
-export default AdminPage;
+export default Dashboard;
