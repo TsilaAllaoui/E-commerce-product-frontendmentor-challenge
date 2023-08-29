@@ -15,6 +15,7 @@ export const CurrentUserContext = createContext<CurrentUserContextType>({
     name: "",
     image: "",
     id: "",
+    isAdmin: false,
   },
   setCurrentUser: (p: User) => {},
   userCollection: {

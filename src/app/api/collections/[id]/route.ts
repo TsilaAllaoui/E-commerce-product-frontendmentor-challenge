@@ -5,7 +5,12 @@ export const GET = async (
   req: NextRequest,
   { params }: { params: { id: string } }
 ) => {
-  //   const res = new NextResponse();
-  //   res = await getProduct(params.id);
-  return NextResponse.json(await getUserCollections(params.id));
+  const res = await getUserCollections(params.id);
+  if (res) {
+    return NextResponse.json(res, { status: 200 });
+  } else
+    return NextResponse.json(
+      { error: "Couldn't fetch products." },
+      { status: 504 }
+    );
 };

@@ -1,21 +1,24 @@
 "use client";
 
 import { Collection, Product } from "@prisma/client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiFillDelete } from "react-icons/ai";
 import "../styles/CollectionList.scss";
 import { ModalCollection } from "./Modal";
+import { CurrentUserContext } from "../contexts/currentUser";
 
-export const CollectionList = ({
-  collections,
-  removeCollection,
-  products,
-}: {
-  collections: Collection[];
-  removeCollection: (i: number) => void;
-  products: Product[];
-}) => {
+interface CollectionProduct extends Collection {
+  productName: string;
+  productImages: string;
+}
+
+export const CollectionList = () => {
+  const [idToDelete, setIdToDelete] = useState("");
+  const [collections, setCollections] = useState<CollectionProduct[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const userId = useContext(CurrentUserContext).currentUser.id;
+
   const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
     const icon = e.currentTarget.querySelector(
       "#collection #icon"
@@ -35,31 +38,58 @@ export const CollectionList = ({
     modal.style.zIndex = "2";
     modal.style.opacity = "1";
     setIdToDelete(collections[index].id);
-    setIndex(index);
   };
 
-  const [idToDelete, setIdToDelete] = useState("");
   const [index, setIndex] = useState(-1);
 
+  const fetchCollection = async () => {
+    const tmp: CollectionProduct[] = [];
+    let collection: Collection[] = [];
+
+    const f = async (datas: Collection[]) => {
+      const productsItems: Product[] = [];
+      for (let i = 0; i < datas.length; i++) {
+        const res = await fetch("/api/products/" + datas[i].productId);
+        const product = await res.json();
+        productsItems.push(product);
+      }
+      return productsItems;
+    };
+
+    fetch("/api/collections/" + userId)
+      .then((res) => res.json())
+      .then(async (datas) => {
+        const finalCollection: CollectionProduct[] = [];
+        collection = datas;
+        const products = await f(collection);
+        for (let i = 0; i < collection.length; i++) {
+          finalCollection.push({
+            ...collection[i],
+            productName: products[i].name,
+            productImages: products[i].images,
+          });
+        }
+        setCollections(finalCollection);
+      })
+      .catch((e) => console.log(e));
+  };
+
   useEffect(() => {
-    if (idToDelete == "" && index != -1) {
-      removeCollection(index);
-      setIndex(-1);
-    }
-  }, [idToDelete]);
+    if (idToDelete == "" && userId != "") fetchCollection();
+  }, [idToDelete, userId]);
 
   return (
     <div id="collection">
       <ModalCollection idToDelete={idToDelete} setIdToDelete={setIdToDelete} />
       <h1>Collections</h1>
       <div id="collections">
-        {products.length > 0 &&
-          products.map((product, index) => (
+        {collections.length > 0 &&
+          collections.map((product, index) => (
             <div
               key={product.id}
               className="product"
               style={{
-                backgroundImage: `url(/${product.images.split(";")[0]})`,
+                backgroundImage: `url(/${product.productImages.split(";")[0]})`,
               }}
               onMouseEnter={handleHover}
               onMouseLeave={handleLeave}
@@ -67,7 +97,7 @@ export const CollectionList = ({
               <p>{collections[index].count}x</p>
               <p>
                 &nbsp; &nbsp;
-                {product.name}
+                {product.productName}
               </p>
               <div id="icon" onClick={(e) => handleDelete(index)}>
                 <IconContext.Provider value={{ color: "red", size: "1.5rem" }}>

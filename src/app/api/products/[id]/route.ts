@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getProduct } from "../../../../../db/utilities";
+import { deleteProduct, getProduct } from "../../../../../db/utilities";
 
 export const GET = async (
   req: NextRequest,
   { params }: { params: { id: string } }
 ) => {
-  //   const res = new NextResponse();
-  //   res = await getProduct(params.id);
   return NextResponse.json(await getProduct(params.id));
+};
+
+export const DELETE = async (
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) => {
+  const res = await deleteProduct(params.id);
+  return NextResponse.json({ status: 200 });
 };

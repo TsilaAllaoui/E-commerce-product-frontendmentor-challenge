@@ -1,10 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  deleteProduct,
-  deleteProductFromCollection,
-} from "../../../db/utilities";
+import { deleteProductFromCollection } from "../../../db/utilities";
 import "../styles/Modal.scss";
 
 export const ModalCollection = ({
@@ -23,7 +20,6 @@ export const ModalCollection = ({
 
   const deleteProduct = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const res = await deleteProductFromCollection(idToDelete);
-    setIdToDelete("");
     hide();
   };
 
@@ -43,10 +39,10 @@ export const ModalCollection = ({
 
 export const ModalHome = ({
   idToDelete,
-  setIdToDelete,
+  resetId,
 }: {
   idToDelete: string;
-  setIdToDelete: (id: string) => void;
+  resetId: (id: string) => void;
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -58,9 +54,11 @@ export const ModalHome = ({
   const deleteProductFromList = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    const res = await deleteProduct(idToDelete);
-    setIdToDelete("");
+    await fetch("/api/products/" + idToDelete, {
+      method: "DELETE",
+    });
     hide();
+    resetId("");
   };
 
   return (

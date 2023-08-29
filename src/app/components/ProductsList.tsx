@@ -2,19 +2,17 @@
 
 import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import "../styles/ProductsList.scss";
+import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiFillDelete, AiFillEye } from "react-icons/ai";
-import { GrView } from "react-icons/gr";
+import "../styles/ProductsList.scss";
 import { ModalHome } from "./Modal";
+import { revalidatePath } from "next/cache";
 
-export const ProductsList = ({
-  products,
-}: {
-  products: Product[] | null | undefined;
-}) => {
+export const ProductsList = () => {
   const router = useRouter();
+
+  const [products, setProducts] = useState<Product[]>([]);
 
   const handleDelete = async (index: number) => {
     const modal = document.querySelector("#modal-home") as HTMLDivElement;
@@ -25,14 +23,20 @@ export const ProductsList = ({
 
   const [idToDelete, setIdToDelete] = useState("");
 
+  const fetchProducts = async () => {
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((datas) => setProducts(datas))
+      .catch((e) => console.log("Error: " + e));
+  };
+
   useEffect(() => {
-    if (idToDelete != "") {
-    }
+    if (idToDelete == "") fetchProducts();
   }, [idToDelete]);
 
   return (
     <>
-      <ModalHome idToDelete={idToDelete} setIdToDelete={setIdToDelete} />
+      <ModalHome idToDelete={idToDelete} resetId={setIdToDelete} />
       <div id="products">
         {products &&
           products.map((product, index) => (

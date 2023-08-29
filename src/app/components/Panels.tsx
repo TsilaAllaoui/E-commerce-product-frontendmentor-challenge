@@ -43,6 +43,7 @@ export const Panels = () => {
     <nav id="panels">
       {panels.map((panel, index) => (
         <Link
+          key={index}
           className="tab"
           href={"/dashboard/" + panel.toLowerCase()}
           style={{
