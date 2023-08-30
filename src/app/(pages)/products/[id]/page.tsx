@@ -1,10 +1,9 @@
-import { Thumbnails } from "@/app/components/Thumbnails";
-import { getProduct } from "../../../../../db/utilities";
 import { Buttons } from "@/app/components/Buttons";
 import { Preview } from "@/app/components/Preview";
+import { Thumbnails } from "@/app/components/Thumbnails";
 import Vendor from "@/app/components/Vendor";
 import "@/app/styles/Product.scss";
-import { useEffect } from "react";
+import { getProduct } from "../../../../../db/utilities";
 
 const ProductPage = async ({
   params,

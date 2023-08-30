@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import { MainColorContext } from "../contexts/mainColor";
-import { InViewContext } from "../contexts/inView";
 import { Product } from "@prisma/client";
 import Image from "next/image";
+import React, { useContext, useEffect, useState } from "react";
+import { InViewContext } from "../contexts/inView";
+import { MainColorContext } from "../contexts/mainColor";
 
 export const Thumbnails = ({
   currentProduct,
@@ -20,6 +20,18 @@ export const Thumbnails = ({
       setImages(currentProduct.images.split(";"));
     }
   }, [currentProduct]);
+
+  const handleViewChange = (
+    e: React.MouseEvent<HTMLImageElement>,
+    index: number
+  ) => {
+    const preview = document.querySelector("#preview") as HTMLImageElement;
+    preview.style.opacity = "0";
+    setTimeout(() => {
+      preview.style.opacity = "1";
+      setInView(index);
+    }, 300);
+  };
 
   return (
     <div id="mini-preview">
@@ -38,9 +50,7 @@ export const Thumbnails = ({
             }`,
             opacity: inView == i ? "1" : "0.3",
           }}
-          onClick={(e) => {
-            setInView(i);
-          }}
+          onClick={(e) => handleViewChange(e, i)}
         />
       ))}
     </div>

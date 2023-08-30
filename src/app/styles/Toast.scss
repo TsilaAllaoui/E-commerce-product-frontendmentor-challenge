@@ -1,0 +1,40 @@
+@keyframes slide {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(150px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+.toast {
+  font-weight: bolder;
+  font-size: 1.25rem;
+  color: white;
+  height: 3.5rem;
+  width: 100%;
+  border-radius: 0.5rem 0 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  gap: 1rem;
+
+  #icon {
+    font-size: 2rem;
+  }
+}
