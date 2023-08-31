@@ -3,14 +3,15 @@
 import Link from "next/link";
 import "../styles/Panels.scss";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export const Panels = () => {
   const panels = ["Add", "Users"];
 
-  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const router = useRouter();
+  const pathName = usePathname();
 
   const handleHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.currentTarget.style.background = "rgba(208, 194, 194, 0.15)";
@@ -38,6 +39,12 @@ export const Panels = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (pathName.includes("/dashboard/update/")) {
+      setCurrentIndex(-1);
+    }
+  }, []);
 
   return (
     <nav id="panels">

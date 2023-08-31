@@ -92,6 +92,14 @@ export const getUser = async (id: string) => {
   }
 };
 
+export const getAllUsers = async () => {
+  try {
+    return await prisma.user.findMany();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 /***********COLLECTIONS***************/
 
 export const getUserCollections = async (userId: string) => {

@@ -29,7 +29,7 @@
     #mini-preview {
       margin-top: 2rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       gap: 1rem;
       width: 55%;
 
@@ -70,6 +70,7 @@
     #desc {
       color: grey;
       font-size: 0.85rem;
+      height: 10rem;
     }
 
     #pricing {

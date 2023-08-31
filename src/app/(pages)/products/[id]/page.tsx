@@ -24,7 +24,9 @@ const ProductPage = async ({
       <div id="right">
         <Vendor currentProduct={currentProduct} />
         <h1 id="name">{currentProduct?.name}</h1>
-        <p id="desc">{currentProduct?.desc}</p>
+        <p id="desc">
+          {currentProduct?.desc == "" ? "No description" : currentProduct?.desc}
+        </p>
         <div id="pricing">
           <div id="price">
             <p>
