@@ -4,9 +4,9 @@ import { Collection, Product } from "@prisma/client";
 import React, { useContext, useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiFillDelete } from "react-icons/ai";
+import { CurrentUserContext } from "../contexts/currentUser";
 import "../styles/CollectionList.scss";
 import { ModalCollection } from "./Modal";
-import { CurrentUserContext } from "../contexts/currentUser";
 
 interface CollectionProduct extends Collection {
   productName: string;
@@ -70,7 +70,6 @@ export const CollectionList = () => {
           });
         }
         setCollections(finalCollection);
-        console.log(finalCollection);
       })
       .catch((e) => console.log(e));
   };

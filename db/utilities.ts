@@ -21,6 +21,7 @@ export const createProduct = async (product: Product) => {
 };
 
 export const updateProduct = async (id: string, product: Product) => {
+  product.id = id;
   try {
     await prisma.product.update({
       where: {

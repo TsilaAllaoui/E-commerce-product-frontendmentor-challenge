@@ -1,12 +1,13 @@
 "use client";
 
+import { deleteAllProducts } from "@/../../db/utilities";
+import { Toast } from "@/app/components/AddedToast";
 import { Product } from "@prisma/client";
-import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
 import { HashLoader } from "react-spinners";
-import { deleteAllProducts } from "../../../db/utilities";
-import "../styles/CreateForm.scss";
-import { Toast } from "./AddedToast";
+import "../styles/UpdateForm.scss";
 
 interface ValuesType {
   name: { val: string; state: boolean };
@@ -20,10 +21,19 @@ interface ValuesType {
   image3: { val: string; state: boolean };
 }
 
-export const CreateForm = () => {
+export const UpdateForm = ({
+  params,
+}: {
+  params: {
+    id: string;
+  };
+}) => {
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
+  const discountRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLTextAreaElement>(null);
+  const vendorRef = useRef<HTMLInputElement>(null);
   const image0Ref = useRef<HTMLInputElement>(null);
   const image1Ref = useRef<HTMLInputElement>(null);
   const image2Ref = useRef<HTMLInputElement>(null);
@@ -45,6 +55,8 @@ export const CreateForm = () => {
     color: "red",
     content: "Error in some field!",
   });
+
+  const router = useRouter();
 
   const submit = async (data: FormData) => {
     let pass = true;
@@ -131,32 +143,40 @@ export const CreateForm = () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       id: "",
-      discount: parseFloat(data.get("discount")!.toString()),
+      discount:
+        data.get("discount")!.toString() != ""
+          ? parseFloat(data.get("discount")!.toString())
+          : null,
       vendor: data.get("vendor")!.toString(),
     };
 
     try {
       setLoading(true);
-      const res = await fetch("/api/add", {
-        method: "POST",
-        body: JSON.stringify(product),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await fetch("/api/products/" + params.id, {
+        method: "PATCH",
+        body: JSON.stringify({
+          product: product,
+          id: params.id,
+        }),
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
       });
+
       setLoading(false);
       setToastProps({
-        color: "green",
-        content: "Product added!",
+        color: "blue",
+        content: "Product updated!",
       });
       const toast = document.querySelector(".toast-error") as HTMLDivElement;
       toast.style.animation = "slide 1500ms ease-in-out";
       setTimeout(() => {
         toast.style.animation = "unset";
       }, 1500);
-      formRef.current!.reset();
+      //   formRef.current!.reset();
+      //   router.push("/");
 
-      return res.json();
+      //   return res.json();
     } catch (e) {
       console.log(e);
     }
@@ -193,6 +213,39 @@ export const CreateForm = () => {
     });
   };
 
+  const getCurrentPoduct = async () => {
+    const res = await fetch("/api/products/" + params.id);
+    const product: Product = await res.json();
+    nameRef.current!.value = product.name;
+    priceRef.current!.value = product.price.toString();
+    image0Ref.current!.value = product.images.split(";")[0];
+    image1Ref.current!.value = product.images.split(";")[1];
+    image2Ref.current!.value = product.images.split(";")[2];
+    image3Ref.current!.value = product.images.split(";")[3];
+    discountRef.current!.value = product.discount
+      ? product.discount?.toString()
+      : "";
+    vendorRef.current!.value = product.vendor ? product.vendor?.toString() : "";
+    descRef.current!.value = product.desc ? product.desc?.toString() : "";
+    setValues({
+      name: { val: product.name, state: true },
+      price: { val: product.price.toString(), state: true },
+      discount: {
+        val: product.discount ? product.discount.toString() : "",
+        state: true,
+      },
+      vendor: { val: product.vendor ? product.vendor : "", state: true },
+      desc: { val: product.desc ? product.desc : "", state: true },
+      image0: { val: product.images.split(";")[0], state: true },
+      image1: { val: product.images.split(";")[1], state: true },
+      image2: { val: product.images.split(";")[2], state: true },
+      image3: { val: product.images.split(";")[3], state: true },
+    });
+  };
+  useEffect(() => {
+    getCurrentPoduct();
+  }, []);
+
   const imagesInputsDatas = [
     { ref: image0Ref, state: values.image0 },
     { ref: image1Ref, state: values.image1 },
@@ -201,9 +254,9 @@ export const CreateForm = () => {
   ];
 
   return (
-    <div id="add">
+    <div id="update">
       <form ref={formRef} action={submit}>
-        <h1>Add Product</h1>
+        <h1>Update Product</h1>
         <div id="parts">
           <div id="left">
             <label>
@@ -239,13 +292,19 @@ export const CreateForm = () => {
             />
             <label>Discount</label>
             <input
+              ref={discountRef}
               type="number"
               max={90}
               name="discount"
               onChange={handleChange}
             />
             <label>Vendor</label>
-            <input type="text" name="vendor" onChange={handleChange} />
+            <input
+              ref={vendorRef}
+              type="text"
+              name="vendor"
+              onChange={handleChange}
+            />
           </div>
           <div id="right">
             {imagesInputsDatas &&
@@ -271,12 +330,12 @@ export const CreateForm = () => {
           </div>
         </div>
         <label>Description</label>
-        <textarea name="desc" onChange={handleChange} />
+        <textarea ref={descRef} name="desc" onChange={handleChange} />
         <button type="submit">
           {loading ? (
             <HashLoader color="green" size={25} />
           ) : (
-            <p>Add Product</p>
+            <p>Update Product</p>
           )}
         </button>
         <Toast
@@ -285,9 +344,6 @@ export const CreateForm = () => {
           className="toast toast-error"
         />
       </form>
-      <button onClick={deletAll} id="submit-button">
-        Erase All
-      </button>
     </div>
   );
 };

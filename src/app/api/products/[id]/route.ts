@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { deleteProduct, getProduct } from "../../../../../db/utilities";
+import {
+  deleteProduct,
+  getProduct,
+  updateProduct,
+} from "../../../../../db/utilities";
 
 export const GET = async (
   req: NextRequest,
@@ -13,5 +17,11 @@ export const DELETE = async (
   { params }: { params: { id: string } }
 ) => {
   const res = await deleteProduct(params.id);
+  return NextResponse.json({ status: 200 });
+};
+
+export const PATCH = async (req: NextRequest) => {
+  const json = await req.json();
+  const res = await updateProduct(json.id, json.product);
   return NextResponse.json({ status: 200 });
 };

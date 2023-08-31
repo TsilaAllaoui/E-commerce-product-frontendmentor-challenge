@@ -4,10 +4,9 @@ import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
-import { AiFillDelete, AiFillEye } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
 import "../styles/ProductsList.scss";
 import { ModalHome } from "./Modal";
-import { revalidatePath } from "next/cache";
 
 export const ProductsList = () => {
   const router = useRouter();
@@ -48,11 +47,16 @@ export const ProductsList = () => {
               }}
             >
               <div id="icon">
-                <div id="delete-icon" onClick={(e) => handleDelete(index)}>
+                <div
+                  id="go-to-update-icon"
+                  onClick={(e) =>
+                    router.push("/dashboard/update/" + product.id)
+                  }
+                >
                   <IconContext.Provider
-                    value={{ color: "red", size: "1.5rem" }}
+                    value={{ color: "green", size: "1.5rem" }}
                   >
-                    <AiFillDelete />
+                    <AiFillEdit />
                   </IconContext.Provider>
                 </div>
                 <div
@@ -63,6 +67,13 @@ export const ProductsList = () => {
                     value={{ color: "blue", size: "1.5rem" }}
                   >
                     <AiFillEye />
+                  </IconContext.Provider>
+                </div>
+                <div id="delete-icon" onClick={(e) => handleDelete(index)}>
+                  <IconContext.Provider
+                    value={{ color: "red", size: "1.5rem" }}
+                  >
+                    <AiFillDelete />
                   </IconContext.Provider>
                 </div>
               </div>
