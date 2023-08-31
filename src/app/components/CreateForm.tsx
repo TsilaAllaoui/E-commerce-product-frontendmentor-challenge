@@ -135,9 +135,6 @@ export const CreateForm = () => {
       vendor: data.get("vendor")!.toString(),
     };
 
-    console.log(product);
-    return;
-
     try {
       setLoading(true);
       const res = await fetch("/api/add", {

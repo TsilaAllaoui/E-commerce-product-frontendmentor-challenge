@@ -35,6 +35,14 @@ export const updateProduct = async (id: string, product: Product) => {
 
 export const deleteProduct = async (id: string) => {
   try {
+    // deleting product in all collection including it
+    await prisma.collection.deleteMany({
+      where: {
+        productId: id,
+      },
+    });
+
+    // deleting product in products list
     await prisma.product.delete({
       where: {
         id: id,
