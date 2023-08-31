@@ -58,6 +58,7 @@
         width: 25;
         font-weight: 600;
         padding-left: 1rem;
+        transition: border 500ms;
 
         &[type="text"] {
           height: 3rem;
@@ -66,15 +67,6 @@
         &[type="number"] {
           height: 3rem;
         }
-      }
-
-      textarea {
-        height: 10rem;
-        flex-grow: 1;
-        text-align: start;
-        border-radius: 0.5rem;
-        font-weight: 600;
-        padding-left: 1rem;
       }
 
       #left {
@@ -87,11 +79,44 @@
         display: flex;
         flex-direction: column;
         width: 50%;
+
+        input {
+          width: 100%;
+        }
       }
     }
 
     .toast-error {
       opacity: 0;
+    }
+
+    label {
+      font-weight: 600;
+      margin: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
+        margin: 0;
+      }
+      span {
+        margin: 0;
+        color: #fe3700;
+        font-weight: 900;
+      }
+    }
+
+    textarea {
+      height: 5rem;
+      width: 100%;
+      flex-grow: 1;
+      text-align: start;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      padding-left: 1rem;
+      border: solid 2px grey;
+      margin-bottom: 1rem;
     }
 
     button {

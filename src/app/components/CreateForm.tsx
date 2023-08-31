@@ -14,14 +14,20 @@ interface ValuesType {
   discount: { val: string; state: boolean };
   vendor: { val: string; state: boolean };
   desc: { val: string; state: boolean };
-  images: { val: string; state: boolean };
+  image0: { val: string; state: boolean };
+  image1: { val: string; state: boolean };
+  image2: { val: string; state: boolean };
+  image3: { val: string; state: boolean };
 }
 
 export const CreateForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
-  const imagesRef = useRef<HTMLInputElement>(null);
+  const image0Ref = useRef<HTMLInputElement>(null);
+  const image1Ref = useRef<HTMLInputElement>(null);
+  const image2Ref = useRef<HTMLInputElement>(null);
+  const image3Ref = useRef<HTMLInputElement>(null);
 
   const [values, setValues] = useState<ValuesType>({
     name: { val: "", state: true },
@@ -29,7 +35,10 @@ export const CreateForm = () => {
     discount: { val: "", state: true },
     vendor: { val: "", state: true },
     desc: { val: "", state: true },
-    images: { val: "", state: true },
+    image0: { val: "", state: true },
+    image1: { val: "", state: true },
+    image2: { val: "", state: true },
+    image3: { val: "", state: true },
   });
   const [loading, setLoading] = useState(false);
   const [toastProps, setToastProps] = useState({
@@ -39,25 +48,47 @@ export const CreateForm = () => {
 
   const submit = async (data: FormData) => {
     let pass = true;
-    const [name, price, images] = [
+    const [name, price, image0, image1, image2, image3] = [
+      { val: "", state: true },
+      { val: "", state: true },
+      { val: "", state: true },
       { val: "", state: true },
       { val: "", state: true },
       { val: "", state: true },
     ];
 
-    if (nameRef.current!.value == "") {
+    if (nameRef.current?.value == "") {
       nameRef.current?.classList.add("error");
       name.state = false;
       pass = false;
     }
-    if (priceRef.current!.value == "") {
+    if (priceRef.current?.value == "") {
       priceRef.current?.classList.add("error");
       price.state = false;
       pass = false;
     }
-    if (imagesRef.current!.value == "") {
-      imagesRef.current?.classList.add("error");
-      images.state = false;
+
+    if (image1Ref.current?.value == "") {
+      image1Ref.current?.classList.add("error");
+      image1.state = false;
+      pass = false;
+    }
+
+    if (image2Ref.current?.value == "") {
+      image2Ref.current?.classList.add("error");
+      image2.state = false;
+      pass = false;
+    }
+
+    if (image3Ref.current?.value == "") {
+      image3Ref.current?.classList.add("error");
+      image3.state = false;
+      pass = false;
+    }
+
+    if (image0Ref.current?.value == "") {
+      image0Ref.current?.classList.add("error");
+      image0.state = false;
       pass = false;
     }
 
@@ -66,7 +97,10 @@ export const CreateForm = () => {
         ...values,
         name: name,
         price: price,
-        images: images,
+        image0: image0,
+        image1: image1,
+        image2: image2,
+        image3: image3,
       });
       setToastProps({
         color: "red",
@@ -80,17 +114,29 @@ export const CreateForm = () => {
       return;
     }
 
+    const images =
+      data.get("image0")?.toString() +
+      ";" +
+      data.get("image1")?.toString() +
+      ";" +
+      data.get("image2")?.toString() +
+      ";" +
+      data.get("image3")?.toString();
+
     const product: Product = {
       name: data.get("name")!.toString(),
       price: parseFloat(data.get("price")!.toString()),
       desc: data.get("desc")!.toString(),
-      images: data.get("images")!.toString(),
+      images: images,
       createdAt: new Date(),
       updatedAt: new Date(),
       id: "",
       discount: parseFloat(data.get("discount")!.toString()),
       vendor: data.get("vendor")!.toString(),
     };
+
+    console.log(product);
+    return;
 
     try {
       setLoading(true);
@@ -128,7 +174,7 @@ export const CreateForm = () => {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    const toCheks = ["name", "price", "images"];
+    const toCheks = ["name", "price", "image0", "image1", "image2", "image3"];
     if (toCheks.includes(e.currentTarget.name) && e.currentTarget.value == "") {
       e.currentTarget.classList.add("error");
     } else {
@@ -153,6 +199,13 @@ export const CreateForm = () => {
   useEffect(() => {
     console.log(values);
   }, [values]);
+
+  const imagesInputsDatas = [
+    { ref: image0Ref, state: values.image0 },
+    { ref: image1Ref, state: values.image1 },
+    { ref: image2Ref, state: values.image2 },
+    { ref: image3Ref, state: values.image3 },
+  ];
 
   return (
     <div id="add">
@@ -202,25 +255,30 @@ export const CreateForm = () => {
             <input type="text" name="vendor" onChange={handleChange} />
           </div>
           <div id="right">
-            <label>Description</label>
-            <textarea name="desc" onChange={handleChange} />
-            <label>
-              <p>Images</p>
-              {!values.images.state && values.images.val == "" ? (
-                <div className="error-span">
-                  <BiInfoCircle id="icon" />
-                  <span>Enter valid images</span>
+            {imagesInputsDatas &&
+              imagesInputsDatas.map((data, index) => (
+                <div key={index}>
+                  <label>
+                    <p>Image {index + 1}</p>
+                    {!data.state.state && data.state.val == "" ? (
+                      <div className="error-span">
+                        <BiInfoCircle id="icon" />
+                        <span>Enter valid image</span>
+                      </div>
+                    ) : null}
+                  </label>
+                  <input
+                    ref={data.ref}
+                    type="text"
+                    name={"image" + index}
+                    onChange={handleChange}
+                  />
                 </div>
-              ) : null}
-            </label>
-            <input
-              ref={imagesRef}
-              type="text"
-              name="images"
-              onChange={handleChange}
-            />
+              ))}
           </div>
         </div>
+        <label>Description</label>
+        <textarea name="desc" onChange={handleChange} />
         <button type="submit">
           {loading ? (
             <HashLoader color="green" size={25} />
