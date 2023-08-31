@@ -1,13 +1,12 @@
 "use client";
 
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import "../styles/Navbar.scss";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { MainColorContext } from "../contexts/mainColor";
 import { User } from "@prisma/client";
+import Link from "next/link";
+import React, { useContext, useEffect, useState } from "react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CurrentUserContext } from "../contexts/currentUser";
-import React from "react";
+import { MainColorContext } from "../contexts/mainColor";
+import "../styles/Navbar.scss";
 
 const Navbar = ({ currentUser }: { currentUser: User | null | undefined }) => {
   const palette = useContext(MainColorContext)?.palette;

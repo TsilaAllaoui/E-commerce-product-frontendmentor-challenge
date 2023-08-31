@@ -70,6 +70,7 @@ export const CollectionList = () => {
           });
         }
         setCollections(finalCollection);
+        console.log(finalCollection);
       })
       .catch((e) => console.log(e));
   };

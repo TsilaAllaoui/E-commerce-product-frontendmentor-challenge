@@ -90,6 +90,10 @@
       }
     }
 
+    .toast-error {
+      opacity: 0;
+    }
+
     button {
       height: 2.5rem;
       border-radius: 0.5rem;
@@ -99,33 +103,16 @@
       margin-bottom: 2rem;
       transition: all 250ms;
       font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-      .button {
-        background-color: red;
-        &:not(.disable):hover {
-          color: white;
-          box-shadow: 0 0.25rem 0.5rem grey;
-          transform: translateY(-0.25rem);
-          background-color: rgba(35, 150, 35, 0.693);
-        }
+      &:hover {
+        color: white;
+        box-shadow: 0 0.25rem 0.5rem grey;
+        transform: translateY(-0.25rem);
+        background-color: rgba(35, 150, 35, 0.693);
       }
-
-      // &:disabled {
-      //   &:hover {
-      //     pointer-events: none;
-      //     // color: white;
-      //     // box-shadow: 0 0.25rem 0.5rem grey;
-      //     // transform: translateY(0);
-      //     // // background-color: rgba(35, 150, 35, 0.693);
-      //   }
-      // }
-
-      // &:hover {
-      //   color: white;
-      //   box-shadow: 0 0.25rem 0.5rem grey;
-      //   transform: translateY(-0.25rem);
-      //   background-color: rgba(35, 150, 35, 0.693);
-      // }
     }
   }
   #submit-button {

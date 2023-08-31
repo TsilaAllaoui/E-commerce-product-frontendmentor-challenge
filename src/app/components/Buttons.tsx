@@ -5,6 +5,7 @@ import React, { useContext, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ImMinus, ImPlus } from "react-icons/im";
+import { addProductsToCollection } from "../../../db/utilities";
 import { CurrentUserContext } from "../contexts/currentUser";
 import { MainColorContext } from "../contexts/mainColor";
 import "../styles/Buttons.scss";
@@ -29,12 +30,12 @@ export const Buttons = ({
 
   const handleCartAdd = async (e: React.MouseEvent<HTMLDivElement>) => {
     if (count == 0) return;
-    // await addProductsToCollection(
-    //   currentProduct!.id,
-    //   currentUser.id,
-    //   count,
-    //   currentUser.id
-    // );
+    await addProductsToCollection(
+      currentProduct!.id,
+      currentUser.id,
+      count,
+      currentUser.id
+    );
     setCount(0);
 
     const toast = document.querySelector(".toast") as HTMLDivElement;
