@@ -41,6 +41,7 @@
       justify-content: flex-end;
       height: 50%;
       width: 100%;
+      cursor: pointer;
 
       button {
         height: 2rem;
@@ -120,6 +121,7 @@
         margin: 0.5rem;
         box-shadow: 0 0.25rem 0.5rem grey;
         transition: box-shadow 250ms, transform 250ms;
+        cursor: pointer;
 
         &:hover {
           box-shadow: 0 0 0.25rem grey;

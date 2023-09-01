@@ -5,7 +5,7 @@ const Home = async () => {
   return (
     <div id="home">
       <h1>Our products</h1>
-      <ProductsList />
+      <ProductsList type="all" />
     </div>
   );
 };

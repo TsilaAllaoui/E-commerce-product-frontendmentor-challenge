@@ -8,7 +8,7 @@ import { AiFillDelete, AiFillEdit, AiFillEye } from "react-icons/ai";
 import "../styles/ProductsList.scss";
 import { ModalHome } from "./Modal";
 
-export const ProductsList = () => {
+export const ProductsList = ({ type }: { type: string }) => {
   const router = useRouter();
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -23,10 +23,20 @@ export const ProductsList = () => {
   const [idToDelete, setIdToDelete] = useState("");
 
   const fetchProducts = async () => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then((datas) => setProducts(datas))
-      .catch((e) => console.log("Error: " + e));
+    if (type == "all") {
+      fetch("/api/products")
+        .then((res) => res.json())
+        .then((datas) => setProducts(datas))
+        .catch((e) => console.log("Error: " + e));
+    } else {
+      fetch("/api/" + type, {
+        method: "POST",
+        body: JSON.stringify({ type: type }),
+      })
+        .then((res) => res.json())
+        .then((datas) => setProducts(datas))
+        .catch((e) => console.log("Error: " + e));
+    }
   };
 
   useEffect(() => {
@@ -37,7 +47,7 @@ export const ProductsList = () => {
     <>
       <ModalHome idToDelete={idToDelete} resetId={setIdToDelete} />
       <div id="products">
-        {products &&
+        {products.length > 0 &&
           products.map((product, index) => (
             <div
               key={product.id}

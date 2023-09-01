@@ -75,6 +75,18 @@ export const getAllProducts = async () => {
   }
 };
 
+export const getAllProductsOfType = async (type: string) => {
+  try {
+    return await prisma.product.findMany({
+      where: {
+        genderType: type,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const deleteAllProducts = async () => {
   try {
     await prisma.product.deleteMany();

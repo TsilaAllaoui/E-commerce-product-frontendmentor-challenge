@@ -1,0 +1,16 @@
+#about {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+
+  p {
+    font-weight: 500;
+
+    :last-of-type {
+      font-weight: 500;
+    }
+  }
+}
