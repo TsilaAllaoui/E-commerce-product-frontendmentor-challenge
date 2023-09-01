@@ -1,7 +1,7 @@
 import { ColorContextProvider } from "./components/Provider/ColorContextProvider";
 import { InViewContextProvider } from "./components/Provider/InViewContextProvider";
 import { CurrentUserContextProvider } from "./components/Provider/CurrentUserProvider";
-import { getUser } from "../../db/utilities";
+import { getFirstUser, getUser } from "../../db/utilities";
 import Navbar from "./components/Navbar";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -18,7 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getUser("");
+  const user = await getFirstUser();
 
   return (
     <html lang="en">
@@ -29,6 +29,7 @@ export default async function RootLayout({
             <InViewContextProvider>{children}</InViewContextProvider>
           </ColorContextProvider>
         </CurrentUserContextProvider>
+        <div id="portal"></div>
       </body>
     </html>
   );

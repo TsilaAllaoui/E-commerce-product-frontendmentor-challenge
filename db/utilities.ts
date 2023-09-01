@@ -1,6 +1,6 @@
 "use server";
 
-import { Product } from "@prisma/client";
+import { Product, User } from "@prisma/client";
 import { prisma } from "./db";
 
 /***********PRODUCTS***************/
@@ -84,9 +84,21 @@ export const deleteAllProducts = async () => {
 
 /***********USERS***************/
 
-export const getUser = async (id: string) => {
+export const getFirstUser = async () => {
   try {
     return await prisma.user.findFirst();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getUser = async (id: string) => {
+  try {
+    return await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
   } catch (e) {
     console.log(e);
   }
@@ -95,6 +107,22 @@ export const getUser = async (id: string) => {
 export const getAllUsers = async () => {
   try {
     return await prisma.user.findMany();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateUser = async (id: string, user: User) => {
+  console.log(user);
+  try {
+    const res = prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: user,
+    });
+    console.log(res);
+    return res;
   } catch (e) {
     console.log(e);
   }
