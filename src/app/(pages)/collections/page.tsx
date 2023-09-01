@@ -1,8 +1,8 @@
 "use client";
 
-import { CollectionList } from "@/app/components/CollectionList";
+import CollectionList from "@/app/components/CollectionList";
 
-export const Collection = () => {
+const Collection = () => {
   return <CollectionList />;
 };
 

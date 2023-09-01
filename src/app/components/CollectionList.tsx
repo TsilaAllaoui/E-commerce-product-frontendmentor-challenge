@@ -13,7 +13,7 @@ interface CollectionProduct extends Collection {
   productImages: string;
 }
 
-export const CollectionList = () => {
+const CollectionList = () => {
   const [idToDelete, setIdToDelete] = useState("");
   const [collections, setCollections] = useState<CollectionProduct[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -110,3 +110,5 @@ export const CollectionList = () => {
     </div>
   );
 };
+
+export default CollectionList;
