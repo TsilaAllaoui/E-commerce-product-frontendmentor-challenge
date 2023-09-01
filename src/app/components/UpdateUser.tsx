@@ -55,7 +55,7 @@ export const UpdateUser = ({
     setUserId("");
   };
 
-  const updateUser = async (data: FormData) => {
+  const formSubmit = async (data: FormData) => {
     let pass = true;
 
     const refsToIndexes = [
@@ -98,30 +98,53 @@ export const UpdateUser = ({
       return;
     }
 
-    const currentUser: User = {
-      id: user.id,
-      image: data.get("image")!.toString(),
-      name: data.get("name")!.toString(),
-      isAdmin: data.get("role")!.toString() == "admin",
-    };
-    const res = await fetch("/api/users/" + id, {
-      method: "PATCH",
-      body: JSON.stringify({
-        id: id,
-        data: {
-          ...currentUser,
-        },
-      }),
-    });
+    if (id != "add") {
+      const currentUser: User = {
+        id: user.id,
+        image: data.get("image")!.toString(),
+        name: data.get("name")!.toString(),
+        isAdmin: data.get("role")!.toString() == "admin",
+      };
+      const res = await fetch("/api/users/" + id, {
+        method: "PATCH",
+        body: JSON.stringify({
+          id: id,
+          data: {
+            ...currentUser,
+          },
+        }),
+      });
 
-    if (res) {
-      const toast = document.querySelector(".toast") as HTMLDivElement;
-      toast.style.animation = "slide 1500ms ease-in-out";
-      setTimeout(() => {
-        toast.style.animation = "unset";
-        closeModal();
-        setUserId("");
-      }, 1000);
+      if (res) {
+        const toast = document.querySelector(".toast") as HTMLDivElement;
+        toast.style.animation = "slide 1500ms ease-in-out";
+        setTimeout(() => {
+          toast.style.animation = "unset";
+          closeModal();
+          setUserId("");
+        }, 1000);
+      }
+    } else {
+      const currentUser: User = {
+        id: user.id,
+        image: data.get("image")!.toString(),
+        name: data.get("name")!.toString(),
+        isAdmin: data.get("role")!.toString() == "admin",
+      };
+      const res = await fetch("/api/users", {
+        method: "POST",
+        body: JSON.stringify(currentUser),
+      });
+
+      if (res) {
+        const toast = document.querySelector(".toast") as HTMLDivElement;
+        toast.style.animation = "slide 1500ms ease-in-out";
+        setTimeout(() => {
+          toast.style.animation = "unset";
+          closeModal();
+          setUserId("");
+        }, 1000);
+      }
     }
   };
 
@@ -138,9 +161,9 @@ export const UpdateUser = ({
 
   return (
     <div id="update-user">
-      <h1>Update</h1>
+      <h1>{id != "add" ? "Update" : "Add"}</h1>
       {user ? (
-        <form action={updateUser}>
+        <form action={formSubmit}>
           <label>
             <p>Image</p>
             <div className="error-span" ref={imageSpanRef}>
@@ -181,12 +204,16 @@ export const UpdateUser = ({
             <option value="none">N/A</option>
           </select>
           <div id="buttons">
-            <button type="submit">Update</button>
+            <button type="submit">{id != "add" ? "Update" : "Add"}</button>
             <button onClick={closeModal}>Cancel</button>
           </div>
         </form>
       ) : null}
-      <Toast className="toast" color="green" content="User updated!" />
+      <Toast
+        className="toast"
+        color="green"
+        content={"User " + id != "add" ? "updated!" : "added!"}
+      />
     </div>
   );
 };

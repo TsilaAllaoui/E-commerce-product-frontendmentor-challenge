@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUser, updateUser } from "../../../../../db/utilities";
+import { User } from "@prisma/client";
 
 export const GET = async (
   req: NextRequest,

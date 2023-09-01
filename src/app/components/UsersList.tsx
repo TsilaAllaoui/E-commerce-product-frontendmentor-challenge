@@ -3,6 +3,7 @@
 import { User } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { BsPersonAdd } from "react-icons/bs";
 import "../styles/UsersList.scss";
 import { UpdateUser } from "./UpdateUser";
 import { YesNoModal } from "./YesNoModal";
@@ -20,24 +21,19 @@ export const UsersList = () => {
       .then((data) => setUsers(data))
       .catch((e) => console.log(e));
     setReady(true);
-  }, [userId]);
+  }, [userId, userIdToDelete]);
 
   const handleModalShow = (
     e: React.MouseEvent<HTMLButtonElement>,
     id: string,
     element: string
   ) => {
-    console.log("ID: " + id);
     const portal = document.querySelector("#" + element) as HTMLElement;
     portal.style.backdropFilter = "blur(5px)";
     portal.style.zIndex = "5";
     if (element == "portal") setUserId(id);
     else setUserIdToDelete(id);
   };
-
-  //   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, user: User) => {
-  //     setUserIdToDelete(user.id);
-  //   };
 
   useEffect(() => {
     console.log(userIdToDelete);
@@ -97,6 +93,13 @@ export const UsersList = () => {
             document.getElementById("yesno-portal") as Element
           )
         : null}
+      <button
+        id="add-user"
+        onClick={(e) => handleModalShow(e, "add", "portal")}
+      >
+        <BsPersonAdd id="icon" />
+        <p>Add</p>
+      </button>
     </div>
   );
 };

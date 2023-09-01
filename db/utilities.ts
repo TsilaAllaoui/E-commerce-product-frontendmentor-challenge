@@ -140,6 +140,16 @@ export const deleteUser = async (id: string) => {
   }
 };
 
+export const createUser = async (user: User) => {
+  try {
+    return await prisma.user.create({
+      data: user,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 /***********COLLECTIONS***************/
 
 export const getUserCollections = async (userId: string) => {
