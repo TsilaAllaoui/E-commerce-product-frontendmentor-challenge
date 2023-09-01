@@ -9,7 +9,12 @@
   p {
     font-weight: 500;
 
-    :last-of-type {
+    &:first-of-type {
+      text-align: center;
+      width: 80%;
+    }
+
+    &:last-of-type {
       font-weight: 500;
     }
   }
