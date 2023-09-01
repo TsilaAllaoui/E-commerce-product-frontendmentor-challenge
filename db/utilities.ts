@@ -13,6 +13,7 @@ export const createProduct = async (product: Product) => {
         price: product.price,
         desc: product.desc,
         images: product.images,
+        genderType: product.genderType,
       },
     });
   } catch (e) {

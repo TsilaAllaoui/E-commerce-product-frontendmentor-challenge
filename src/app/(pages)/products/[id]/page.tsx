@@ -24,9 +24,27 @@ const ProductPage = async ({
       <div id="right">
         <Vendor currentProduct={currentProduct} />
         <h1 id="name">{currentProduct?.name}</h1>
-        <p id="desc">
-          {currentProduct?.desc == "" ? "No description" : currentProduct?.desc}
-        </p>
+        <div id="desc-gender">
+          <p id="desc">
+            {currentProduct?.desc == ""
+              ? "No description"
+              : currentProduct?.desc}
+          </p>
+          <p
+            id="gender"
+            style={{
+              backgroundColor:
+                currentProduct?.genderType == "man"
+                  ? "rgb(0, 132, 255)"
+                  : currentProduct?.genderType == "woman"
+                  ? "rgb(223, 62, 175)"
+                  : "rgb(127, 127, 127)",
+            }}
+          >
+            {currentProduct!.genderType[0].toUpperCase() +
+              currentProduct?.genderType.slice(1)}
+          </p>
+        </div>
         <div id="pricing">
           <div id="price">
             <p>

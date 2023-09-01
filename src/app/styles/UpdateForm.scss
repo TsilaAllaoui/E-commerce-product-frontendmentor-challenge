@@ -86,6 +86,20 @@
       }
     }
 
+    select {
+      height: 3rem;
+      width: 106%;
+      border-radius: 0.5rem;
+      border: solid 2px grey;
+      font-weight: 600;
+      padding-left: 1rem;
+      transition: border 500ms;
+
+      option {
+        font-size: 1.15rem;
+      }
+    }
+
     .toast-error {
       opacity: 0;
     }

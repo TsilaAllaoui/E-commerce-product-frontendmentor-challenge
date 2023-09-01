@@ -67,10 +67,24 @@
       width: 75%;
     }
 
-    #desc {
-      color: grey;
-      font-size: 0.85rem;
-      height: 10rem;
+    #desc-gender {
+      display: flex;
+      justify-content: space-between;
+
+      #desc {
+        color: grey;
+        font-size: 0.85rem;
+        height: 10rem;
+        flex-grow: 1;
+      }
+
+      #gender {
+        width: 5;
+        color: white;
+        height: 1.5rem;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+      }
     }
 
     #pricing {

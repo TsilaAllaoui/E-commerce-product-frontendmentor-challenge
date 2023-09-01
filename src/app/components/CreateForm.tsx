@@ -8,7 +8,7 @@ import { deleteAllProducts } from "../../../db/utilities";
 import "../styles/CreateForm.scss";
 import { Toast } from "./AddedToast";
 
-interface ValuesType {
+export interface ValuesType {
   name: { val: string; state: boolean };
   price: { val: string; state: boolean };
   discount: { val: string; state: boolean };
@@ -18,6 +18,7 @@ interface ValuesType {
   image1: { val: string; state: boolean };
   image2: { val: string; state: boolean };
   image3: { val: string; state: boolean };
+  gender: { val: string; state: boolean };
 }
 
 export const CreateForm = () => {
@@ -28,6 +29,7 @@ export const CreateForm = () => {
   const image1Ref = useRef<HTMLInputElement>(null);
   const image2Ref = useRef<HTMLInputElement>(null);
   const image3Ref = useRef<HTMLInputElement>(null);
+  const genderRef = useRef<HTMLSelectElement>(null);
 
   const [values, setValues] = useState<ValuesType>({
     name: { val: "", state: true },
@@ -39,6 +41,7 @@ export const CreateForm = () => {
     image1: { val: "", state: true },
     image2: { val: "", state: true },
     image3: { val: "", state: true },
+    gender: { val: "", state: true },
   });
   const [loading, setLoading] = useState(false);
   const [toastProps, setToastProps] = useState({
@@ -48,59 +51,34 @@ export const CreateForm = () => {
 
   const submit = async (data: FormData) => {
     let pass = true;
-    const [name, price, image0, image1, image2, image3] = [
-      { val: "", state: true },
-      { val: "", state: true },
-      { val: "", state: true },
-      { val: "", state: true },
-      { val: "", state: true },
-      { val: "", state: true },
+
+    const datas = [
+      { ref: nameRef, val: "", state: true },
+      { ref: priceRef, val: "", state: true },
+      { ref: image0Ref, val: "", state: true },
+      { ref: image0Ref, val: "", state: true },
+      { ref: image0Ref, val: "", state: true },
+      { ref: image0Ref, val: "", state: true },
+      { ref: genderRef, val: "", state: true },
     ];
 
-    if (nameRef.current?.value == "") {
-      nameRef.current?.classList.add("error");
-      name.state = false;
-      pass = false;
-    }
-    if (priceRef.current?.value == "") {
-      priceRef.current?.classList.add("error");
-      price.state = false;
-      pass = false;
-    }
-
-    if (image1Ref.current?.value == "") {
-      image1Ref.current?.classList.add("error");
-      image1.state = false;
-      pass = false;
-    }
-
-    if (image2Ref.current?.value == "") {
-      image2Ref.current?.classList.add("error");
-      image2.state = false;
-      pass = false;
-    }
-
-    if (image3Ref.current?.value == "") {
-      image3Ref.current?.classList.add("error");
-      image3.state = false;
-      pass = false;
-    }
-
-    if (image0Ref.current?.value == "") {
-      image0Ref.current?.classList.add("error");
-      image0.state = false;
-      pass = false;
-    }
+    datas.forEach(({ ref, val, state }) => {
+      if (ref.current?.value == "") {
+        ref.current?.classList.add("error");
+        state = false;
+        pass = false;
+      }
+    });
 
     if (!pass) {
       setValues({
         ...values,
-        name: name,
-        price: price,
-        image0: image0,
-        image1: image1,
-        image2: image2,
-        image3: image3,
+        name: { val: datas[0].val, state: datas[0].state },
+        price: { val: datas[1].val, state: datas[1].state },
+        image0: { val: datas[2].val, state: datas[2].state },
+        image1: { val: datas[3].val, state: datas[3].state },
+        image2: { val: datas[4].val, state: datas[4].state },
+        image3: { val: datas[5].val, state: datas[5].state },
       });
       setToastProps({
         color: "red",
@@ -133,6 +111,7 @@ export const CreateForm = () => {
       id: "",
       discount: parseFloat(data.get("discount")!.toString()),
       vendor: data.get("vendor")!.toString(),
+      genderType: data.get("gender")!.toString(),
     };
 
     try {
@@ -246,6 +225,8 @@ export const CreateForm = () => {
             />
             <label>Vendor</label>
             <input type="text" name="vendor" onChange={handleChange} />
+            <label>Description</label>
+            <textarea name="desc" onChange={handleChange} />
           </div>
           <div id="right">
             {imagesInputsDatas &&
@@ -268,10 +249,16 @@ export const CreateForm = () => {
                   />
                 </div>
               ))}
+            <label>
+              <p>Gender</p>
+            </label>
+            <select ref={genderRef} name="gender">
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+              <option value="any">Any</option>
+            </select>
           </div>
         </div>
-        <label>Description</label>
-        <textarea name="desc" onChange={handleChange} />
         <button type="submit">
           {loading ? (
             <HashLoader color="green" size={25} />
