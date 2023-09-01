@@ -5,12 +5,14 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import "../styles/UsersList.scss";
 import { UpdateUser } from "./UpdateUser";
+import { YesNoModal } from "./YesNoModal";
 
 export const UsersList = () => {
   const fields = ["Image", "Name", "Role"];
   const [users, setUsers] = useState<User[]>([]);
   const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState("");
+  const [userIdToDelete, setUserIdToDelete] = useState("");
 
   useEffect(() => {
     fetch("/api/users")
@@ -22,14 +24,24 @@ export const UsersList = () => {
 
   const handleModalShow = (
     e: React.MouseEvent<HTMLButtonElement>,
-    id: string
+    id: string,
+    element: string
   ) => {
     console.log("ID: " + id);
-    const portal = document.querySelector("#portal") as HTMLElement;
+    const portal = document.querySelector("#" + element) as HTMLElement;
     portal.style.backdropFilter = "blur(5px)";
     portal.style.zIndex = "5";
-    setUserId(id);
+    if (element == "portal") setUserId(id);
+    else setUserIdToDelete(id);
   };
+
+  //   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, user: User) => {
+  //     setUserIdToDelete(user.id);
+  //   };
+
+  useEffect(() => {
+    console.log(userIdToDelete);
+  }, [userIdToDelete]);
 
   return (
     <div id="users">
@@ -52,13 +64,18 @@ export const UsersList = () => {
               <td>
                 <button
                   id="update"
-                  onClick={(e) => handleModalShow(e, user.id)}
+                  onClick={(e) => handleModalShow(e, user.id, "portal")}
                 >
                   Update
                 </button>
               </td>
               <td>
-                <button id="delete">Delete</button>
+                <button
+                  id="delete"
+                  onClick={(e) => handleModalShow(e, user.id, "yesno-portal")}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
@@ -68,6 +85,16 @@ export const UsersList = () => {
         ? createPortal(
             <UpdateUser id={userId} setUserId={setUserId} />,
             document.getElementById("portal") as Element
+          )
+        : null}
+      {ready && userIdToDelete != ""
+        ? createPortal(
+            <YesNoModal
+              id={userIdToDelete}
+              setUserId={setUserIdToDelete}
+              type={"user"}
+            />,
+            document.getElementById("yesno-portal") as Element
           )
         : null}
     </div>

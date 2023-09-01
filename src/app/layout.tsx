@@ -30,6 +30,7 @@ export default async function RootLayout({
           </ColorContextProvider>
         </CurrentUserContextProvider>
         <div id="portal"></div>
+        <div id="yesno-portal"></div>
       </body>
     </html>
   );

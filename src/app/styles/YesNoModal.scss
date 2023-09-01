@@ -1,0 +1,53 @@
+#yesno-modal {
+  height: 25%;
+  width: 50%;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 0 15px grey;
+  text-align: center;
+
+  .toast {
+    margin-top: 3rem;
+  }
+
+  #buttons {
+    border: none;
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    justify-content: center;
+
+    button {
+      height: 3rem;
+      width: 6rem;
+      border-radius: 0.3rem;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:first-of-type {
+        background-color: #01987aa0;
+      }
+
+      &:first-of-type {
+        background-color: #01987aa0;
+
+        &:hover {
+          background-color: #01987ac1;
+        }
+      }
+
+      &:last-of-type {
+        background-color: #980106a0;
+
+        &:hover {
+          background-color: #980106cf;
+        }
+      }
+    }
+  }
+}

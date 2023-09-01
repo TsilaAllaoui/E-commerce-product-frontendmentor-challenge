@@ -128,6 +128,18 @@ export const updateUser = async (id: string, user: User) => {
   }
 };
 
+export const deleteUser = async (id: string) => {
+  try {
+    return await prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 /***********COLLECTIONS***************/
 
 export const getUserCollections = async (userId: string) => {
